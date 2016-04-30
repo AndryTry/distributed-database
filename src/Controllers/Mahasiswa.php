@@ -7,7 +7,7 @@
  * Mahasiswa class for mahasiswa activity
  */
 
-namespace App\Controllers;
+namespace Siakad\Controllers;
 
 class Mahasiswa {
 

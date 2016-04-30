@@ -3,7 +3,7 @@ require '../vendor/autoload.php';
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-use \App\Controllers\Mahasiswa as Mahasiswa;
+use \Siakad\Controllers\Mahasiswa as Mahasiswa;
 
 $mahasiswa = new Mahasiswa();
 
