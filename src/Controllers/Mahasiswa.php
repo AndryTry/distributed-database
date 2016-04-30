@@ -11,7 +11,11 @@ namespace Siakad\Controllers;
 
 class Mahasiswa {
 
+    function __construct(){
+        $this->templates = new \League\Plates\Engine(__DIR__ . '/../templates');
+    }
+
     function add(){
-        return "yes bos";
+        return $this->templates->render('profile', ['name' => 'Jonathan']);
     }
 }

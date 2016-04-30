@@ -6,12 +6,9 @@ use \Psr\Http\Message\ResponseInterface as Response;
 use \Siakad\Controllers\Mahasiswa as Mahasiswa;
 
 $mahasiswa = new Mahasiswa();
-
 $app = new \Slim\App;
-$app->get('/hello/{name}', function (Request $request, Response $response) {
-    $name = $request->getAttribute('name');
-    $response->getBody()->write("Hello, $name");
 
-    return $response;
+$app->get('/hello/{name}', function (Request $request, Response $response) use ($mahasiswa) {
+    return $mahasiswa->add();
 });
 $app->run();
