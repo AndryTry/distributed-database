@@ -1,21 +1,21 @@
 <?php
 /**
+ * Created by PhpStorm.
  * User: faisal
- * Date: 30/04/16
- * Time: 20:08
- *
- * Mahasiswa class for mahasiswa activity
+ * Date: 01/05/16
+ * Time: 22:12
  */
 
 namespace Siakad\Controllers;
 
-class Mahasiswa {
+
+class Siakad {
 
     function __construct(){
         $this->templates = new \League\Plates\Engine(__DIR__ . '/../templates');
     }
 
     function index(){
-        return $this->templates->render('mahasiswa');
+        return $this->templates->render('index');
     }
 }
