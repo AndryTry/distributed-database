@@ -10,7 +10,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="/">Home</a></li>
                         <li><a href="/mahasiswa">Mahasiswa</a></li>
-                        <li><a href="#">Matakuliah</a></li>
+                        <li><a href="/matakuliah">Matakuliah</a></li>
                     </ul>
                 </div>
             </div>
