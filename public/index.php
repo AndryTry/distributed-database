@@ -24,4 +24,8 @@ $app->get('/matakuliah', function() use ($matakuliah){
     return $matakuliah->index();
 });
 
+$app->get('/mahasiswa/edit/{id}', function(Request $request) use ($mahasiswa){
+    return $mahasiswa->edit($request->getAttribute("id"));
+});
+
 $app->run();

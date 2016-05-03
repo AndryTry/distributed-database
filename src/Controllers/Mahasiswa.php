@@ -9,13 +9,19 @@
 
 namespace Siakad\Controllers;
 
-class Mahasiswa {
+class Mahasiswa extends Base{
 
     function __construct(){
-        $this->templates = new \League\Plates\Engine(__DIR__ . '/../templates');
+        parent::__construct();
     }
 
     function index(){
+        $dbh = $this->connect(1);
+        $dbh2 = $this->connect(2);
         return $this->templates->render('mahasiswa');
+    }
+
+    function edit($id){
+        return $this->templates->render('edit_mahasiswa', ['id' => $id]);
     }
 }

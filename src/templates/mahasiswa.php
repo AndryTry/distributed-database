@@ -20,8 +20,8 @@
                 <td>juwiring fwg3rf 5b667 brvtbtytyb btytbybt btyby</td>
                 <td>
                     <div class="btn-group btn-group-xs" role="group" aria-label="...">
-                        <a class="btn btn-danger" href="#" role="button">hapus</a>
-                        <a class="btn btn-primary" href="#" role="button">edit</a>
+                        <a class="btn btn-danger" href="/mahasiswa/delete/1" role="button">hapus</a>
+                        <a class="btn btn-primary" href="/mahasiswa/edit/1" role="button">edit</a>
                     </div>
                 </td>
                 <td>1</td>
