@@ -9,10 +9,10 @@
 namespace Siakad\Controllers;
 
 
-class Matakuliah {
+class Matakuliah extends Base{
 
     function __construct(){
-        $this->templates = new \League\Plates\Engine(__DIR__ . '/../templates');
+        parent::__construct();
     }
 
     function index(){

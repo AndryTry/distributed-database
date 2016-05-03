@@ -10,22 +10,22 @@
                 <td>nama</td>
                 <td>alamat</td>
                 <td>action</td>
-                <td>server</td>
             </tr>
         </thead>
         <tbody>
+            <?php foreach($mahasiswa as $row ){ ?>
             <tr>
-                <td>1</td>
-                <td>faisal</td>
-                <td>juwiring fwg3rf 5b667 brvtbtytyb btytbybt btyby</td>
+                <td><?= $row["nim"] ?></td>
+                <td><?= $row["nama"] ?></td>
+                <td><?= $row["alamat"] ?></td>
                 <td>
                     <div class="btn-group btn-group-xs" role="group" aria-label="...">
-                        <a class="btn btn-danger" href="/mahasiswa/delete/1" role="button">hapus</a>
-                        <a class="btn btn-primary" href="/mahasiswa/edit/1" role="button">edit</a>
+                        <a class="btn btn-danger" href="/mahasiswa/delete/<?= $row["nim"] ?>" role="button">hapus</a>
+                        <a class="btn btn-primary" href="/mahasiswa/edit/<?= $row["nim"] ?>" role="button">edit</a>
                     </div>
                 </td>
-                <td>1</td>
             </tr>
+            <?php }?>
         </tbody>
     </table>
 

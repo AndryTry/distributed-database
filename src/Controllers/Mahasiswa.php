@@ -18,7 +18,12 @@ class Mahasiswa extends Base{
     function index(){
         $dbh = $this->connect(1);
         $dbh2 = $this->connect(2);
-        return $this->templates->render('mahasiswa');
+
+        $sql = "SELECT nim, nama, alamat, flag FROM mahasiswa";
+        $row = $dbh->query($sql);
+        return $this->templates->render('mahasiswa', [
+            'mahasiswa' => $row->fetchAll()
+        ]);
     }
 
     function edit($id){
