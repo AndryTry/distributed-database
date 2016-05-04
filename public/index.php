@@ -20,12 +20,23 @@ $app->get('/mahasiswa', function () use ($mahasiswa) {
     return $mahasiswa->index();
 });
 
-$app->get('/matakuliah', function() use ($matakuliah){
-    return $matakuliah->index();
+$app->get('/mahasiswa/add', function() use ($app, $mahasiswa){
+    return $mahasiswa->add(
+        $nim=$_GET["nim"]
+    );
 });
 
-$app->get('/mahasiswa/edit/{id}', function(Request $request) use ($mahasiswa){
-    return $mahasiswa->edit($request->getAttribute("id"));
+$app->post('/mahasiswa/add', function() use ($app, $mahasiswa){
+    return $mahasiswa->add(
+        $nim = $_POST["nim"],
+        $nama=$_POST["nama"],
+        $alamat=$_POST["alamat"],
+        $method = "POST"
+    );
+});
+
+$app->get('/matakuliah', function() use ($matakuliah){
+    return $matakuliah->index();
 });
 
 $app->run();

@@ -26,7 +26,34 @@ class Mahasiswa extends Base{
         ]);
     }
 
-    function edit($id){
-        return $this->templates->render('edit_mahasiswa', ['id' => $id]);
+    function edit($id, $method="GET"){
+        if($method == "POST"){
+            return "belum";
+        } else {
+            return $this->templates->render('edit_mahasiswa', ['id' => $id]);
+        }
+    }
+
+    public function add($nim, $nama="", $alamat="", $method="GET"){
+
+        $dbh = $this->connect($nim[0]);
+
+        if($method == "POST"){
+            $stmt = $dbh->prepare("UPDATE mahasiswa SET nama=:nama, alamat=:alamat, flag=0 WHERE nim=:nim");
+            $stmt->bindParam(":nama", $nama);
+            $stmt->bindParam(":alamat", $alamat);
+            $stmt->bindParam(":nim", $nim);
+            $stmt->execute();
+
+            return $this->templates->render('message', ['message' => "Berhasil"]);
+        } else {
+            // todo check nim sudah di pakai blm
+
+            $stmt = $dbh->prepare("INSERT INTO mahasiswa (nim, flag) VALUES (:nim, 1)");
+            $stmt->bindParam(":nim", $nim);
+            $stmt->execute();
+
+            return $this->templates->render('edit_mahasiswa', ['nim' => $nim]);
+        }
     }
 }

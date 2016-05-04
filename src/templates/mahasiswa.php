@@ -38,7 +38,7 @@
                     <h4 class="modal-title">Masukan nim</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form" action="/add_mahasiswa.php", method="post">
+                    <form class="form" action="/mahasiswa/add" method="get">
                         <div class="form-group">
                             <input type="text" name="nim" class="form-control" placeholder="nim">
                         </div>
