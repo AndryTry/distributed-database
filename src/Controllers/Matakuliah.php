@@ -31,7 +31,7 @@ class Matakuliah extends Base{
         $dbh = $this->connect($kode[0]);
 
         if($method == "POST"){
-            $stmt = $dbh->prepare("UPDATE matakuliah SET nama=:nama, semester=:semester, sks=:sks flag=0 WHERE kode=:kode");
+            $stmt = $dbh->prepare("UPDATE matakuliah SET nama=:nama, semester=:semester, sks=:sks, flag=0 WHERE kode=:kode");
             $stmt->bindParam(":nama", $nama);
             $stmt->bindParam(":semester", $semester);
             $stmt->bindParam(":sks", $sks);

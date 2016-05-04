@@ -70,11 +70,12 @@ $app->get('/matakuliah/add', function() use ($app, $matakuliah){
     );
 });
 
-$app->post('/matakuliah/add', function() use ($app, $mahasiswa){
-    return $mahasiswa->add(
-        $nim = $_POST["nim"],
+$app->post('/matakuliah/add/{kode}', function(Request $request) use ($app, $matakuliah){
+    return $matakuliah->add(
+        $kode = $request->getAttribute("kode"),
         $nama=$_POST["nama"],
-        $alamat=$_POST["alamat"],
+        $semester=$_POST["semester"],
+        $sks=$_POST["sks"],
         $method = "POST"
     );
 });
