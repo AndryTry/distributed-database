@@ -38,7 +38,13 @@ class Mahasiswa extends Base{
 
             return $this->templates->render('message', ['message' => "Berhasil disimpan"]);
         } else {
-            # todo check flag
+            # check flag
+            $sql = sprintf("SELECT * FROM mahasiswa WHERE nim=%s AND flag=1", $nim);
+            $row = $dbh->query($sql);
+            if ($row->fetch() != false){
+                return $this->templates->render('message', ['message' => "Data sedang di pakai"]);
+            }
+
             $stmt = $dbh->prepare("UPDATE mahasiswa SET flag=1 WHERE nim=:nim");
             $stmt->bindParam(":nim", $nim);
             $stmt->execute();
@@ -68,7 +74,12 @@ class Mahasiswa extends Base{
 
             return $this->templates->render('message', ['message' => "Berhasil disimpan"]);
         } else {
-            // todo check nim sudah di pakai blm
+            // check nim sudah di pakai
+            $sql = sprintf("SELECT * FROM mahasiswa WHERE nim=%s", $nim);
+            $row = $dbh->query($sql);
+            if ($row->fetch() != false){
+                return $this->templates->render('message', ['message' => "Nim sudah di pakai"]);
+            }
 
             $stmt = $dbh->prepare("INSERT INTO mahasiswa (nim, flag) VALUES (:nim, 1)");
             $stmt->bindParam(":nim", $nim);
@@ -80,8 +91,14 @@ class Mahasiswa extends Base{
 
     public function delete($nim){
 
-        // todo check flag
         $dbh = $this->connect($nim[0]);
+
+        // check flag
+        $sql = sprintf("SELECT * FROM mahasiswa WHERE nim=%s AND flag=1", $nim);
+        $row = $dbh->query($sql);
+        if ($row->fetch() != false){
+            return $this->templates->render('message', ['message' => "Data sedang di pakai"]);
+        }
 
         $stmt = $dbh->prepare("DELETE FROM mahasiswa WHERE nim=:nim");
         $stmt->bindParam(":nim", $nim);
