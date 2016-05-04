@@ -26,11 +26,32 @@ class Mahasiswa extends Base{
         ]);
     }
 
-    function edit($id, $method="GET"){
+    function edit($nim, $method="GET"){
+        $dbh = $this->connect($nim[0]);
+
         if($method == "POST"){
-            return "belum";
+            $stmt = $dbh->prepare("UPDATE mahasiswa SET nama=:nama, alamat=:alamat, flag=0 WHERE nim=:nim");
+            $stmt->bindParam(":nama", $nama);
+            $stmt->bindParam(":alamat", $alamat);
+            $stmt->bindParam(":nim", $nim);
+            $stmt->execute();
+
+            return $this->templates->render('message', ['message' => "Berhasil disimpan"]);
         } else {
-            return $this->templates->render('edit_mahasiswa', ['id' => $id]);
+            # todo check flag
+            $stmt = $dbh->prepare("UPDATE mahasiswa SET flag=1 WHERE nim=:nim");
+            $stmt->bindParam(":nim", $nim);
+            $stmt->execute();
+
+            $sql = sprintf("SELECT nim, nama, alamat, flag FROM mahasiswa WHERE nim=%s", $nim);
+            $row = $dbh->query($sql);
+            $data = $row->fetch();
+
+            return $this->templates->render('edit_mahasiswa', [
+                'nim' => $nim,
+                'nama' => $data["nama"],
+                'alamat' => $data["alamat"]
+            ]);
         }
     }
 
@@ -45,7 +66,7 @@ class Mahasiswa extends Base{
             $stmt->bindParam(":nim", $nim);
             $stmt->execute();
 
-            return $this->templates->render('message', ['message' => "Berhasil"]);
+            return $this->templates->render('message', ['message' => "Berhasil disimpan"]);
         } else {
             // todo check nim sudah di pakai blm
 
