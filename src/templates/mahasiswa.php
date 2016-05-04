@@ -10,6 +10,7 @@
                 <td>nama</td>
                 <td>alamat</td>
                 <td>action</td>
+                <td>server</td>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +25,7 @@
                         <a class="btn btn-primary" href="/mahasiswa/edit/<?= $row["nim"] ?>" role="button">edit</a>
                     </div>
                 </td>
+                <td><?= $row["server"] ?></td>
             </tr>
             <?php }?>
         </tbody>

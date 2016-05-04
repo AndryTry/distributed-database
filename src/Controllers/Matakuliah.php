@@ -21,8 +21,22 @@ class Matakuliah extends Base{
 
         $sql = "SELECT kode, nama,  semester, sks, flag FROM matakuliah";
         $row = $dbh->query($sql);
+        $row2 = $dbh2->query($sql);
+
+        $data = array();
+
+        foreach ($row->fetchAll() as $r){
+            $r["server"] = 1;
+            array_push($data, $r);
+        }
+
+        foreach ($row2->fetchAll() as $r){
+            $r["server"] = 2;
+            array_push($data, $r);
+        }
+
         return $this->templates->render('matakuliah', [
-            'matakuliah' => $row->fetchAll()
+            'matakuliah' => $data
         ]);
     }
 

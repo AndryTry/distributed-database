@@ -11,6 +11,7 @@
                 <td>semester</td>
                 <td>jumlah sks</td>
                 <td>action</td>
+                <td>server</td>
             </tr>
         </thead>
         <tbody>
@@ -26,6 +27,7 @@
                         <a class="btn btn-primary" href="/matakuliah/edit/<?=$row["kode"] ?>" role="button">edit</a>
                     </div>
                 </td>
+                <td><?= $row["server"] ?></td>
             </tr>
             <?php } ?>
         </tbody>
