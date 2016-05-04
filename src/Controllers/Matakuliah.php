@@ -66,7 +66,7 @@ class Matakuliah extends Base{
         }
 
         $stmt = $dbh->prepare("UPDATE matakuliah SET flag=1 WHERE kode=:kode");
-        $stmt->bindParam(":kode", $koe);
+        $stmt->bindParam(":kode", $kode);
         $stmt->execute();
 
         $sql = sprintf("SELECT kode, nama, semester, sks, flag FROM matakuliah WHERE kode=%s", $kode);
@@ -79,5 +79,23 @@ class Matakuliah extends Base{
             'semester' => $data["semester"],
             'sks' => $data["sks"],
         ]);
+    }
+
+    public function delete($kode)
+    {
+        $dbh = $this->connect($kode[0]);
+
+        // check flag
+        $sql = sprintf("SELECT * FROM matakuliah WHERE kode=%s AND flag=1", $kode);
+        $row = $dbh->query($sql);
+        if ($row->fetch() != false){
+            return $this->templates->render('message', ['message' => "Data sedang di pakai"]);
+        }
+
+        $stmt = $dbh->prepare("DELETE FROM matakuliah WHERE kode=:kode");
+        $stmt->bindParam(":kode", $kode);
+        $stmt->execute();
+
+        return $this->templates->render('message', ['message' => "Berhasil dihapus"]);
     }
 }

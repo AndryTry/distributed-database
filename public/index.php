@@ -96,9 +96,9 @@ $app->post('/matakuliah/edit/{kode}', function(Request $request) use ($app, $mat
     );
 });
 
-$app->get('/matakuliah/delete/{nim}', function(Request $request) use ($app, $mahasiswa){
-    return $mahasiswa->delete(
-        $nim=$request->getAttribute("nim")
+$app->get('/matakuliah/delete/{kode}', function(Request $request) use ($app, $matakuliah){
+    return $matakuliah->delete(
+        $kode=$request->getAttribute("kode")
     );
 });
 
