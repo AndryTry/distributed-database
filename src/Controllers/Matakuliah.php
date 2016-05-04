@@ -54,4 +54,30 @@ class Matakuliah extends Base{
             return $this->templates->render('edit_matakuliah', ['kode' => $kode]);
         }
     }
+
+    public function edit($kode)
+    {
+        $dbh = $this->connect($kode[0]);
+        # check flag
+        $sql = sprintf("SELECT * FROM matakuliah WHERE kode=%s AND flag=1", $kode);
+        $row = $dbh->query($sql);
+        if ($row->fetch() != false){
+            return $this->templates->render('message', ['message' => "Data sedang di pakai"]);
+        }
+
+        $stmt = $dbh->prepare("UPDATE matakuliah SET flag=1 WHERE kode=:kode");
+        $stmt->bindParam(":kode", $koe);
+        $stmt->execute();
+
+        $sql = sprintf("SELECT kode, nama, semester, sks, flag FROM matakuliah WHERE kode=%s", $kode);
+        $row = $dbh->query($sql);
+        $data = $row->fetch();
+
+        return $this->templates->render('edit_matakuliah', [
+            'kode' => $kode,
+            'nama' => $data["nama"],
+            'semester' => $data["semester"],
+            'sks' => $data["sks"],
+        ]);
+    }
 }

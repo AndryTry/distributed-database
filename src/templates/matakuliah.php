@@ -11,7 +11,6 @@
                 <td>semester</td>
                 <td>jumlah sks</td>
                 <td>action</td>
-                <td>server</td>
             </tr>
         </thead>
         <tbody>
@@ -23,11 +22,10 @@
                 <td><?= $row["sks"] ?></td>
                 <td>
                     <div class="btn-group btn-group-xs" role="group" aria-label="...">
-                        <a class="btn btn-danger" href="#" role="button">hapus</a>
-                        <a class="btn btn-primary" href="#" role="button">edit</a>
+                        <a class="btn btn-danger" href="/matakuliah/delete/<?=$row["kode"] ?>" role="button">hapus</a>
+                        <a class="btn btn-primary" href="/matakuliah/edit/<?=$row["kode"] ?>" role="button">edit</a>
                     </div>
                 </td>
-                <td>1</td>
             </tr>
             <?php } ?>
         </tbody>

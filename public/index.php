@@ -80,17 +80,18 @@ $app->post('/matakuliah/add/{kode}', function(Request $request) use ($app, $mata
     );
 });
 
-$app->get('/matakuliah/edit/{nim}', function(Request $request) use ($app, $mahasiswa){
-    return $mahasiswa->edit(
-        $nim=$request->getAttribute("nim")
+$app->get('/matakuliah/edit/{kode}', function(Request $request) use ($app, $matakuliah){
+    return $matakuliah->edit(
+        $kode=$request->getAttribute("kode")
     );
 });
 
-$app->post('/matakuliah/edit/{nim}', function(Request $request) use ($app, $mahasiswa){
-    return $mahasiswa->add(
-        $nim = $request->getAttribute("nim"),
+$app->post('/matakuliah/edit/{kode}', function(Request $request) use ($app, $matakuliah){
+    return $matakuliah->add(
+        $kode = $request->getAttribute("kode"),
         $nama=$_POST["nama"],
-        $alamat=$_POST["alamat"],
+        $semester=$_POST["semester"],
+        $sks=$_POST["sks"],
         $method = "POST"
     );
 });
