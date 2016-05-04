@@ -77,4 +77,16 @@ class Mahasiswa extends Base{
             return $this->templates->render('edit_mahasiswa', ['nim' => $nim]);
         }
     }
+
+    public function delete($nim){
+
+        // todo check flag
+        $dbh = $this->connect($nim[0]);
+
+        $stmt = $dbh->prepare("DELETE FROM mahasiswa WHERE nim=:nim");
+        $stmt->bindParam(":nim", $nim);
+        $stmt->execute();
+
+        return $this->templates->render('message', ['message' => "Berhasil dihapus"]);
+    }
 }

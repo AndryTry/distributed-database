@@ -50,6 +50,12 @@ $app->post('/mahasiswa/edit/{nim}', function(Request $request) use ($app, $mahas
     );
 });
 
+$app->get('/mahasiswa/delete/{nim}', function(Request $request) use ($app, $mahasiswa){
+    return $mahasiswa->delete(
+        $nim=$request->getAttribute("nim")
+    );
+});
+
 $app->get('/matakuliah', function() use ($matakuliah){
     return $matakuliah->index();
 });
