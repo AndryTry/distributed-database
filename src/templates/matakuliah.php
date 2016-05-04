@@ -15,11 +15,12 @@
             </tr>
         </thead>
         <tbody>
+            <?php foreach($matakuliah as $row) { ?>
             <tr>
-                <td>1</td>
-                <td>matematika distrik</td>
-                <td>2</td>
-                <td>4</td>
+                <td><?= $row["kode"] ?></td>
+                <td><?= $row["nama"] ?></td>
+                <td><?= $row["semester"] ?></td>
+                <td><?= $row["sks"] ?></td>
                 <td>
                     <div class="btn-group btn-group-xs" role="group" aria-label="...">
                         <a class="btn btn-danger" href="#" role="button">hapus</a>
@@ -28,6 +29,7 @@
                 </td>
                 <td>1</td>
             </tr>
+            <?php } ?>
         </tbody>
     </table>
 

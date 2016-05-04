@@ -56,8 +56,48 @@ $app->get('/mahasiswa/delete/{nim}', function(Request $request) use ($app, $maha
     );
 });
 
+//
+// Matakuliah
+//
+
 $app->get('/matakuliah', function() use ($matakuliah){
     return $matakuliah->index();
+});
+
+$app->get('/matakuliah/add', function() use ($app, $matakuliah){
+    return $matakuliah->add(
+        $nim=$_GET["kode"]
+    );
+});
+
+$app->post('/matakuliah/add', function() use ($app, $mahasiswa){
+    return $mahasiswa->add(
+        $nim = $_POST["nim"],
+        $nama=$_POST["nama"],
+        $alamat=$_POST["alamat"],
+        $method = "POST"
+    );
+});
+
+$app->get('/matakuliah/edit/{nim}', function(Request $request) use ($app, $mahasiswa){
+    return $mahasiswa->edit(
+        $nim=$request->getAttribute("nim")
+    );
+});
+
+$app->post('/matakuliah/edit/{nim}', function(Request $request) use ($app, $mahasiswa){
+    return $mahasiswa->add(
+        $nim = $request->getAttribute("nim"),
+        $nama=$_POST["nama"],
+        $alamat=$_POST["alamat"],
+        $method = "POST"
+    );
+});
+
+$app->get('/matakuliah/delete/{nim}', function(Request $request) use ($app, $mahasiswa){
+    return $mahasiswa->delete(
+        $nim=$request->getAttribute("nim")
+    );
 });
 
 $app->run();

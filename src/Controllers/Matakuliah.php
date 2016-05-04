@@ -16,6 +16,42 @@ class Matakuliah extends Base{
     }
 
     function index(){
-        return $this->templates->render('matakuliah');
+        $dbh = $this->connect(1);
+        $dbh2 = $this->connect(2);
+
+        $sql = "SELECT kode, nama,  semester, sks, flag FROM matakuliah";
+        $row = $dbh->query($sql);
+        return $this->templates->render('matakuliah', [
+            'matakuliah' => $row->fetchAll()
+        ]);
+    }
+
+    public function add($kode, $nama="", $semester="", $sks="", $method="GET")
+    {
+        $dbh = $this->connect($kode[0]);
+
+        if($method == "POST"){
+            $stmt = $dbh->prepare("UPDATE matakuliah SET nama=:nama, semester=:semester, sks=:sks flag=0 WHERE kode=:kode");
+            $stmt->bindParam(":nama", $nama);
+            $stmt->bindParam(":semester", $semester);
+            $stmt->bindParam(":sks", $sks);
+            $stmt->bindParam(":kode", $kode);
+            $stmt->execute();
+
+            return $this->templates->render('message', ['message' => "Berhasil disimpan"]);
+        } else {
+            // check kode sudah di pakai
+            $sql = sprintf("SELECT * FROM matakuliah WHERE kode=%s", $kode);
+            $row = $dbh->query($sql);
+            if ($row->fetch() != false){
+                return $this->templates->render('message', ['message' => "Kode sudah di pakai"]);
+            }
+
+            $stmt = $dbh->prepare("INSERT INTO matakuliah (kode, flag) VALUES (:kode, 1)");
+            $stmt->bindParam(":kode", $kode);
+            $stmt->execute();
+
+            return $this->templates->render('edit_matakuliah', ['kode' => $kode]);
+        }
     }
 }
