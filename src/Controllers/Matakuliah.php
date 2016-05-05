@@ -42,6 +42,11 @@ class Matakuliah extends Base{
 
     public function add($kode, $nama="", $semester="", $sks="", $method="GET")
     {
+        if($kode[0] != "1" && $kode[0] != "2"){
+            var_dump($kode[0] == "1");
+            return $this->templates->render('message', ['message' => "Kode harus diawali 1 atau 2"]);
+        }
+
         $dbh = $this->connect($kode[0]);
 
         if($method == "POST"){
