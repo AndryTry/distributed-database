@@ -11,6 +11,7 @@
                         <li><a href="/">Home</a></li>
                         <li><a href="/mahasiswa">Mahasiswa</a></li>
                         <li><a href="/matakuliah">Matakuliah</a></li>
+                        <li><a href="/transaksi">Transaksi</a></li>
                     </ul>
                 </div>
             </div>

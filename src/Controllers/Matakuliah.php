@@ -19,7 +19,7 @@ class Matakuliah extends Base{
         $dbh = $this->connect(1);
         $dbh2 = $this->connect(2);
 
-        $sql = "SELECT kode, nama,  semester, sks, flag FROM matakuliah";
+        $sql = "SELECT kode, nama,  semester, sks, flag FROM mata_kuliah";
         $row = $dbh->query($sql);
         $row2 = $dbh2->query($sql);
 
@@ -50,7 +50,7 @@ class Matakuliah extends Base{
         $dbh = $this->connect($kode[0]);
 
         if($method == "POST"){
-            $stmt = $dbh->prepare("UPDATE matakuliah SET nama=:nama, semester=:semester, sks=:sks, flag=0 WHERE kode=:kode");
+            $stmt = $dbh->prepare("UPDATE mata_kuliah SET nama=:nama, semester=:semester, sks=:sks, flag=0 WHERE kode=:kode");
             $stmt->bindParam(":nama", $nama);
             $stmt->bindParam(":semester", $semester);
             $stmt->bindParam(":sks", $sks);
@@ -60,13 +60,13 @@ class Matakuliah extends Base{
             return $this->templates->render('message', ['message' => "Berhasil disimpan"]);
         } else {
             // check kode sudah di pakai
-            $sql = sprintf("SELECT * FROM matakuliah WHERE kode=%s", $kode);
+            $sql = sprintf("SELECT * FROM mata_kuliah WHERE kode=%s", $kode);
             $row = $dbh->query($sql);
             if ($row->fetch() != false){
                 return $this->templates->render('message', ['message' => "Kode sudah di pakai"]);
             }
 
-            $stmt = $dbh->prepare("INSERT INTO matakuliah (kode, flag) VALUES (:kode, 1)");
+            $stmt = $dbh->prepare("INSERT INTO mata_kuliah (kode, flag) VALUES (:kode, 1)");
             $stmt->bindParam(":kode", $kode);
             $stmt->execute();
 
@@ -78,17 +78,17 @@ class Matakuliah extends Base{
     {
         $dbh = $this->connect($kode[0]);
         # check flag
-        $sql = sprintf("SELECT * FROM matakuliah WHERE kode=%s AND flag=1", $kode);
+        $sql = sprintf("SELECT * FROM mata_kuliah WHERE kode=%s AND flag=1", $kode);
         $row = $dbh->query($sql);
         if ($row->fetch() != false){
             return $this->templates->render('message', ['message' => "Data sedang di pakai"]);
         }
 
-        $stmt = $dbh->prepare("UPDATE matakuliah SET flag=1 WHERE kode=:kode");
+        $stmt = $dbh->prepare("UPDATE mata_kuliah SET flag=1 WHERE kode=:kode");
         $stmt->bindParam(":kode", $kode);
         $stmt->execute();
 
-        $sql = sprintf("SELECT kode, nama, semester, sks, flag FROM matakuliah WHERE kode=%s", $kode);
+        $sql = sprintf("SELECT kode, nama, semester, sks, flag FROM mata_kuliah WHERE kode=%s", $kode);
         $row = $dbh->query($sql);
         $data = $row->fetch();
 
@@ -105,13 +105,13 @@ class Matakuliah extends Base{
         $dbh = $this->connect($kode[0]);
 
         // check flag
-        $sql = sprintf("SELECT * FROM matakuliah WHERE kode=%s AND flag=1", $kode);
+        $sql = sprintf("SELECT * FROM mata_kuliah WHERE kode=%s AND flag=1", $kode);
         $row = $dbh->query($sql);
         if ($row->fetch() != false){
             return $this->templates->render('message', ['message' => "Data sedang di pakai"]);
         }
 
-        $stmt = $dbh->prepare("DELETE FROM matakuliah WHERE kode=:kode");
+        $stmt = $dbh->prepare("DELETE FROM mata_kuliah WHERE kode=:kode");
         $stmt->bindParam(":kode", $kode);
         $stmt->execute();
 

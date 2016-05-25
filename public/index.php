@@ -2,13 +2,14 @@
 require '../vendor/autoload.php';
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
-use \Psr\Http\Message\ResponseInterface as Response;
 use \Siakad\Controllers\Mahasiswa as Mahasiswa;
+use \Siakad\Controllers\Transaksi as Transaksi;
 use \Siakad\Controllers\Siakad as Siakad;
 use \Siakad\Controllers\Matakuliah as Matakuliah;
 
 $mahasiswa = new Mahasiswa();
 $matakuliah = new Matakuliah();
+$transaksi = new Transaksi();
 $siakad = new Siakad();
 $app = new \Slim\App;
 
@@ -101,5 +102,69 @@ $app->get('/matakuliah/delete/{kode}', function(Request $request) use ($app, $ma
         $kode=$request->getAttribute("kode")
     );
 });
+
+//
+// Transaksi
+//
+
+$app->get('/transaksi', function () use ($transaksi){
+    return $transaksi->index();
+});
+
+$app->get('/transaksi/add', function() use ($transaksi){
+    return $transaksi->add(
+        $kode=$_GET["kode"],
+        $jumlah = $_GET["jumlah"]
+    );
+});
+
+$app->post('/transaksi/add/{kode}', function(Request $request) use ($transaksi){
+    $jml=$_POST["jumlah"];
+    $makul = array();
+    for ($i=1; $i <= $jml; $i++){
+        array_push($makul, $_POST["matakuliah".$i]);
+    }
+
+    return $transaksi->add(
+        $kode=$request->getAttribute("kode"),
+        $jumlah=$jml,
+        $nim=$_POST["nim"],
+        $tahun_akademik=$_POST["tahun_akademik"],
+        $semester=$_POST["semester"],
+        $matakuliah=$makul,
+        $method="POST"
+    );
+});
+
+$app->get('/transaksi/edit/{kode}', function(Request $request) use ($transaksi){
+    return $transaksi->edit(
+        $id=$request->getAttribute("kode")
+    );
+});
+
+$app->post('/transaksi/edit/{kode}', function (Request $request) use ($transaksi){
+    $jml=$_POST["jumlah"];
+    $makul = array();
+    for ($i=1; $i <= $jml; $i++){
+        array_push($makul, $_POST["matakuliah".$i]);
+    }
+
+    return $transaksi->add(
+        $kode=$request->getAttribute("kode"),
+        $jumlah=$jml,
+        $nim=$_POST["nim"],
+        $tahun_akademik=$_POST["tahun_akademik"],
+        $semester=$_POST["semester"],
+        $matakuliah=$makul,
+        $method="POST"
+    );
+});
+
+$app->get('/transaksi/delete/{kode}', function (Request $request) use ($transaksi){
+    return $transaksi->delete(
+        $kode=$request->getAttribute("kode")
+    );
+});
+
 
 $app->run();
