@@ -39,12 +39,12 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Masukan kode</h4>
+                    <h4 class="modal-title">Masukan nim</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form" action="/transaksi/add", method="get">
+                    <form class="form" action="/transaksi/add" method="get">
                         <div class="form-group">
-                            <input type="text" name="kode" class="form-control" placeholder="kode">
+                            <input type="text" name="nim" class="form-control" placeholder="nim">
                         </div>
                         <div class="form-group">
                             <input type="text" name="jumlah" class="form-control" placeholder="jumlah transaksi">

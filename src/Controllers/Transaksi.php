@@ -85,9 +85,9 @@ class Transaksi extends Base {
         }
     }
 
-    function add($kode, $jumlah=0, $nim="", $tahun_akademik="", $semester=0, $matakuliah=array(), $method="GET"){
+    function add($kode, $nim, $jumlah=0, $tahun_akademik="", $semester=0, $matakuliah=array(), $method="GET"){
 
-        $dbh = $this->connect($kode[0]);
+        $dbh = $this->connect($nim[0]);
 
         if ($method == "POST"){
             # update transaksi
@@ -98,6 +98,11 @@ class Transaksi extends Base {
             $stmt->bindParam(":semester", $semester);
             $stmt->bindParam(":kode", $kode);
             $stmt->execute();
+
+            # set flag
+            $sql = sprintf("UPDATE mahasiswa SET flag=0 WHERE nim=%s", $nim);
+            $stm = $dbh->prepare($sql);
+            $stm->execute();
 
             # save detail transaksi
             foreach ($matakuliah as $makul){
@@ -110,22 +115,28 @@ class Transaksi extends Base {
 
             return $this->templates->render("message", ["message" => "Berhasil disimpan"]);
         } else {
-            # check kode sudah di pakai
-            $sql = sprintf("SELECT * FROM transaksi WHERE kode=%s", $kode);
+            # check mahasiswa sedang di pakai
+            $sql = sprintf("SELECT * FROM mahasiswa WHERE nim=%s AND flag=1", $nim);
             $row = $dbh->query($sql);
             if ($row->fetch() != false){
-                return $this->templates->render("message", ["message" => "Id sudah dipakai"]);
+                return $this->templates->render("message", ["message" => "Mahasiswa sedang di pakai"]);
             }
 
-            $sql = sprintf("INSERT INTO transaksi (kode, flag) VALUES (%s, 1)", $kode);
+            # set flag
+            $sql = sprintf("UPDATE mahasiswa SET flag=1 WHERE nim=%s", $nim);
+            $stm = $dbh->prepare($sql);
+            $stm->execute();
+
+            $sql = sprintf("SELECT kode FROM transaksi ORDER BY kode DESC LIMIT 1");
+            $row = $dbh->query($sql);
+            $kode = $row->fetch()["kode"];
+            $kode = $kode + 1;
+
+            $sql = sprintf("INSERT INTO transaksi (kode, nim, flag) VALUES (%s, %s, 1)", $kode, $nim);
             $stt = $dbh->prepare($sql);
             $stt->execute();
 
-            $sql = sprintf("INSERT INTO detail_transaksi (kode_transaksi, flag) VALUES (%s, 1)", $kode);
-            $sta = $dbh->prepare($sql);
-            $sta->execute();
-
-            return $this->templates->render('edit_transaksi', ["kode" => $kode, "jumlah" => $jumlah]);
+            return $this->templates->render('edit_transaksi', ["kode" => $kode, "jumlah" => $jumlah, "nim" => $nim]);
         }
     }
 

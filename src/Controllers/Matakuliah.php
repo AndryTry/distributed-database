@@ -117,4 +117,17 @@ class Matakuliah extends Base{
 
         return $this->templates->render('message', ['message' => "Berhasil dihapus"]);
     }
+
+    public function get($server, $kode)
+    {
+        $dbh = $this->connect($server);
+        $sql = sprintf("SELECT * FROM mata_kuliah WHERE kode=%s", $kode);
+        $row = $dbh->query($sql);
+        $data = $row->fetch();
+        if ( $data == false){
+            return json_encode(array());
+        }
+
+        return json_encode($data);
+    }
 }

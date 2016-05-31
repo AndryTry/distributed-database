@@ -103,6 +103,14 @@ $app->get('/matakuliah/delete/{kode}', function(Request $request) use ($app, $ma
     );
 });
 
+$app->get('/matakuliah/json/get/{server}/{kode}', function(Request $request) use ($app, $matakuliah){
+    return $matakuliah->get(
+        $server = $request->getAttribute("server"),
+        $kode=$request->getAttribute("kode")
+    );
+});
+
+
 //
 // Transaksi
 //
@@ -113,7 +121,8 @@ $app->get('/transaksi', function () use ($transaksi){
 
 $app->get('/transaksi/add', function() use ($transaksi){
     return $transaksi->add(
-        $kode=$_GET["kode"],
+        $kode=0,
+        $nim=$_GET["nim"],
         $jumlah = $_GET["jumlah"]
     );
 });
@@ -127,8 +136,8 @@ $app->post('/transaksi/add/{kode}', function(Request $request) use ($transaksi){
 
     return $transaksi->add(
         $kode=$request->getAttribute("kode"),
-        $jumlah=$jml,
         $nim=$_POST["nim"],
+        $jumlah=$jml,
         $tahun_akademik=$_POST["tahun_akademik"],
         $semester=$_POST["semester"],
         $matakuliah=$makul,

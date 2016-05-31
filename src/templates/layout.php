@@ -2,6 +2,8 @@
     <head>
         <title>Basis Data Terdistribusi</title>
         <link href="/static/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <script src="/static/assets/jquery/jquery.min.js"></script>
+        <script src="/static/assets/bootstrap/js/bootstrap.min.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-default">
@@ -24,8 +26,5 @@
                 </div>
             </div>
         </div>
-
-        <script src="/static/assets/jquery/jquery.min.js"></script>
-        <script src="/static/assets/bootstrap/js/bootstrap.min.js"></script>
     </body>
 </html>
