@@ -19,25 +19,34 @@ class Transaksi extends Base {
         $dbh2 = $this->connect(2);
 
         $sql = "SELECT kode, nim, tahun_akademik, semester FROM transaksi";
-
         $row = $dbh->query($sql);
         $row2 = $dbh2->query($sql);
 
-        $data = array();
+        $sql2 = "SELECT nim, nama, alamat FROM mahasiswa WHERE flag=0";
+        $mahasiswa = $dbh->query($sql2);
+        $mahasiswa2 = $dbh2->query($sql2);
 
+        $data = array();
         foreach ($row->fetchAll() as $r){
             $r["server"] = 1;
             array_push($data, $r);
         }
-
         foreach ($row2->fetchAll() as $r){
             $r["server"] = 2;
             array_push($data, $r);
         }
 
+        $data_mahasiswa = array();
+        foreach ($mahasiswa->fetchAll() as $r) {
+            array_push($data_mahasiswa, $r);
+        }
+        foreach ($mahasiswa2->fetchAll() as $r) {
+            array_push($data_mahasiswa, $r);
+        }
 
         return $this->templates->render('transaksi', [
-            "transaksi" => $data
+            "transaksi" => $data,
+            "mahasiswa" => $data_mahasiswa
         ]);
     }
 

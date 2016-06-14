@@ -2,8 +2,10 @@
     <head>
         <title>Basis Data Terdistribusi</title>
         <link href="<?= $base_url ?>/static/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<?= $base_url ?>/static/assets/combobox/bootstrap-combobox.css" rel="stylesheet" />
         <script src="<?= $base_url ?>/static/assets/jquery/jquery.min.js"></script>
         <script src="<?= $base_url ?>/static/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="<?= $base_url ?>/static/assets/combobox/bootstrap-combobox.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-default">

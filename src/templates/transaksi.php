@@ -44,10 +44,12 @@
                 <div class="modal-body">
                     <form class="form" action="<?= $base_url ?>/transaksi/add" method="get">
                         <div class="form-group">
-                            <input type="text" name="nim" class="form-control" placeholder="nim">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="jumlah" class="form-control" placeholder="jumlah transaksi">
+                            <select class="form-control" id="nim" name="nim">
+                                <option></option>
+                                <?php foreach($mahasiswa as $row) { ?>
+                                <option value="<?= $row["nim"] ?>"><?= $row["nim"]." ".$row["nama"] ?></option>
+                                <?php } ?>
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-default">simpan</button>
                     </form>
@@ -55,4 +57,10 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#nim').combobox  ();
+      });
+    </script>
 <?php $this->stop() ?>
