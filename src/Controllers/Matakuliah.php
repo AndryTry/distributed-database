@@ -130,4 +130,21 @@ class Matakuliah extends Base{
 
         return json_encode($data);
     }
+
+    public function flag($server, $kode){
+        $dbh = $this->connect($server);
+        $sql = sprintf("UPDATE mata_kuliah SET flag=1 WHERE kode=%s", $kode);
+        $dbh->query($sql);
+
+        return "Flag success ".$kode;
+    }
+
+    public function unflag($server, $kode){
+        $dbh = $this->connect($server);
+        $sql = sprintf("UPDATE mata_kuliah SET flag=0 WHERE kode=%s", $kode);
+        $dbh->query($sql);
+
+        return "Unflag success ".$kode;
+    }
+
 }

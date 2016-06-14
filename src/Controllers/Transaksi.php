@@ -120,6 +120,12 @@ class Transaksi extends Base {
                 $stmt->bindParam(":kode_transaksi", $kode);
                 $stmt->bindParam(":kode_matakuliah", $makul);
                 $stmt->execute();
+
+                # set flag
+                $sql = "UPDATE mata_kuliah SET flag=0 WHERE kode=:kode";
+                $stmt = $dbh->prepare($sql);
+                $stmt->bindParam(":kode", $makul);
+                $stmt->execute();
             }
 
             return $this->templates->render("message", ["message" => "Berhasil disimpan"]);
@@ -141,11 +147,21 @@ class Transaksi extends Base {
             $kode = $row->fetch()["kode"];
             $kode = $kode + 1;
 
+            $sql = "SELECT * FROM mata_kuliah";
+            $row = $dbh->query($sql);
+            $matakuliah = $row->fetchAll();
+
             $sql = sprintf("INSERT INTO transaksi (kode, nim, flag) VALUES (%s, %s, 1)", $kode, $nim);
             $stt = $dbh->prepare($sql);
             $stt->execute();
 
-            return $this->templates->render('edit_transaksi', ["kode" => $kode, "jumlah" => $jumlah, "nim" => $nim]);
+            return $this->templates->render('edit_transaksi',
+              [
+                "kode" => $kode,
+                "jumlah" => $jumlah,
+                "nim" => $nim,
+                "matakuliah" => $matakuliah
+              ]);
         }
     }
 

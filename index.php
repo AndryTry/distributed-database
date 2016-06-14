@@ -110,7 +110,19 @@ $app->get('/matakuliah/json/get/{server}/{kode}', function(Request $request) use
     );
 });
 
+$app->get('/matakuliah/json/flag/{server}/{kode}', function(Request $request) use ($app, $matakuliah){
+  return $matakuliah->flag(
+      $server = $request->getAttribute("server"),
+      $kode=$request->getAttribute("kode")
+  );
+});
 
+$app->get('/matakuliah/json/unflag/{server}/{kode}', function(Request $request) use ($app, $matakuliah){
+  return $matakuliah->unflag(
+      $server = $request->getAttribute("server"),
+      $kode=$request->getAttribute("kode")
+  );
+});
 //
 // Transaksi
 //

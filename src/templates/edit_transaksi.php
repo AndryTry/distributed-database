@@ -36,23 +36,20 @@
         <h3>Matakuliah</h3>
         <div class="row">
             <div class="col-md-3">
-                <h4>Kode matakuliah</h4>
-            </div>
-            <div class="col-md-9">
-                <h4>Nama matakuliah</h4>
+                <h4>Matakuliah</h4>
             </div>
         </div>
 
         <?php for($i=1; $i <= $jumlah; $i++){ ?>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-12">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="matakuliah<?= $i?>" id="matakuliah<?= $i?>" placeholder="kode kuliah <?= $i ?>" value="<?= $this->e($matakuliah[$i]["kode_matakuliah"]) ?>">
-                </div>
-            </div>
-            <div class="col-md-9">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="nama matakuliah <?= $i ?>" id="nama_matakuliah<?= $i?>" disabled value="<?= $this->e($matakuliah[$i]["nama_matakuliah"]) ?>">
+                    <select class="form-control" id="matakuliah<?= $i?>" name="matakuliah<?= $i?>">
+                        <option></option>
+                        <?php foreach($matakuliah as $row) { ?>
+                        <option value="<?= $row["kode"] ?>"><?= $row["kode"]." ".$row["nama"] ?></option>
+                        <?php } ?>
+                    </select>
                 </div>
             </div>
         </div>
@@ -60,15 +57,29 @@
         <button type="submit" class="btn btn-default">Submit</button>
     </form>
     <script>
+        var collection = {};
+
         <?php for($i=1; $i <= $jumlah; $i++){ ?>
-        $("#matakuliah<?= $i?>" ).keyup(function() {
+
+        collection["matakuliah<?= $i?>"] = $("#matakuliah<?= $i?>").val();
+
+        $("#matakuliah<?= $i?>" ).on("change", function() {
+            if (collection["matakuliah<?= $i?>"] != ""){
+              // set flag sebelumnya ke o
+              $.ajax({
+                url: "<?= $base_url ?>/matakuliah/json/unflag/<?= $this->e($nim)[0] ?>/" + collection["matakuliah<?= $i?>"]
+              }).done(function( data ) {
+                console.log(data);
+              });
+            }
+
+            // set flag ke 1
             $.ajax({
-                url: "<?= $base_url ?>/matakuliah/json/get/<?= $this->e($nim)[0] ?>/" + $("#matakuliah<?= $i?>").val()
+                url: "<?= $base_url ?>/matakuliah/json/flag/<?= $this->e($nim)[0] ?>/" + $("#matakuliah<?= $i?>").val()
             }).done(function( data ) {
-                var nama = $.parseJSON(data)["nama"];
-                $("#nama_matakuliah<?= $i?>").val(nama);
-                console.log(nama)
+              console.log(data)
             });
+            collection["matakuliah<?= $i?>"] = $("#matakuliah<?= $i?>").val();
         });
         <?php } ?>
     </script>

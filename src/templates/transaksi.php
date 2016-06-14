@@ -51,6 +51,9 @@
                                 <?php } ?>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <input type="text" name="jumlah" class="form-control" placeholder="jumlah transaksi">
+                        </div>
                         <button type="submit" class="btn btn-default">simpan</button>
                     </form>
                 </div>
