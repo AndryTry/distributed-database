@@ -2,7 +2,7 @@
 
 <?php $this->start('page') ?>
     <h2>Edit matakuliah <?= $this->e($kode) ?></h2>
-    <form action="/matakuliah/add/<?= $this->e($kode) ?>" method="post">
+    <form action="<?= $base_url ?>/matakuliah/add/<?= $this->e($kode) ?>" method="post">
         <div class="form-group">
             <label for="kode">Kode</label>
             <input type="text" class="form-control" id="kode" placeholder="kode" disabled value="<?= $this->e($kode) ?>">

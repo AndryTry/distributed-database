@@ -21,8 +21,8 @@
                 <td><?= $row["alamat"] ?></td>
                 <td>
                     <div class="btn-group btn-group-xs" role="group" aria-label="...">
-                        <a class="btn btn-danger" href="/mahasiswa/delete/<?= $row["nim"] ?>" role="button">hapus</a>
-                        <a class="btn btn-primary" href="/mahasiswa/edit/<?= $row["nim"] ?>" role="button">edit</a>
+                        <a class="btn btn-danger" href="<?= $base_url ?>/mahasiswa/delete/<?= $row["nim"] ?>" role="button">hapus</a>
+                        <a class="btn btn-primary" href="<?= $base_url ?>/mahasiswa/edit/<?= $row["nim"] ?>" role="button">edit</a>
                     </div>
                 </td>
                 <td><?= $row["server"] ?></td>
@@ -40,7 +40,7 @@
                     <h4 class="modal-title">Masukan nim</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form" action="/mahasiswa/add" method="get">
+                    <form class="form" action="<?= $base_url ?>/mahasiswa/add" method="get">
                         <div class="form-group">
                             <input type="text" name="nim" class="form-control" placeholder="nim">
                         </div>

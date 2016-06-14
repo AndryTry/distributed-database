@@ -2,7 +2,7 @@
 
 <?php $this->start('page') ?>
     <h2>Edit mahasiswa <?= $this->e($nim) ?></h2>
-    <form action="/mahasiswa/add" method="post">
+    <form action="<?= $base_url ?>/mahasiswa/add" method="post">
         <input type="hidden" name="nim" value="<?= $this->e($nim) ?>">
         <div class="form-group">
             <label for="nim">NIM</label>

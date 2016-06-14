@@ -2,7 +2,7 @@
 
 <?php $this->start('page') ?>
     <h2>Transaksi <?= $this->e($kode) ?></h2>
-    <form action="/transaksi/add/<?= $this->e($kode) ?>" method="post">
+    <form action="<?= $base_url ?>/transaksi/add/<?= $this->e($kode) ?>" method="post">
         <div class="row">
             <div class="col-md-6">
                 <input type="hidden" name="jumlah" value="<?= $this->e($jumlah) ?>">
@@ -63,7 +63,7 @@
         <?php for($i=1; $i <= $jumlah; $i++){ ?>
         $("#matakuliah<?= $i?>" ).keyup(function() {
             $.ajax({
-                url: "http://localhost:5000/matakuliah/json/get/<?= $this->e($nim)[0] ?>/" + $("#matakuliah<?= $i?>").val()
+                url: "<?= $base_url ?>/matakuliah/json/get/<?= $this->e($nim)[0] ?>/" + $("#matakuliah<?= $i?>").val()
             }).done(function( data ) {
                 var nama = $.parseJSON(data)["nama"];
                 $("#nama_matakuliah<?= $i?>").val(nama);

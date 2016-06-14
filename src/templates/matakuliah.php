@@ -23,8 +23,8 @@
                 <td><?= $row["sks"] ?></td>
                 <td>
                     <div class="btn-group btn-group-xs" role="group" aria-label="...">
-                        <a class="btn btn-danger" href="/matakuliah/delete/<?=$row["kode"] ?>" role="button">hapus</a>
-                        <a class="btn btn-primary" href="/matakuliah/edit/<?=$row["kode"] ?>" role="button">edit</a>
+                        <a class="btn btn-danger" href="<?= $base_url ?>/matakuliah/delete/<?=$row["kode"] ?>" role="button">hapus</a>
+                        <a class="btn btn-primary" href="<?= $base_url ?>/matakuliah/edit/<?=$row["kode"] ?>" role="button">edit</a>
                     </div>
                 </td>
                 <td><?= $row["server"] ?></td>
@@ -42,7 +42,7 @@
                     <h4 class="modal-title">Masukan kode</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form" action="/matakuliah/add", method="get">
+                    <form class="form" action="<?= $base_url ?>/matakuliah/add", method="get">
                         <div class="form-group">
                             <input type="text" name="kode" class="form-control" placeholder="kode">
                         </div>

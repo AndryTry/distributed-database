@@ -15,6 +15,7 @@ class Base {
 
     function __construct(){
         $this->templates = new Engine(__DIR__ . '/../templates');
+        $this->templates->addData(["base_url" => "http://localhost:5000"]);
     }
 
     function connect($server_id){
@@ -48,5 +49,4 @@ class Base {
 
         return $dbh;
     }
-
 }

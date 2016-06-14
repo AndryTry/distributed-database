@@ -23,8 +23,8 @@
                 <td><?= $row["semester"] ?></td>
                 <td>
                     <div class="btn-group btn-group-xs" role="group" aria-label="...">
-                        <a class="btn btn-danger" href="/transaksi/delete/<?=$row["kode"] ?>" role="button">hapus</a>
-                        <a class="btn btn-primary" href="/transaksi/edit/<?=$row["kode"] ?>" role="button">edit</a>
+                        <a class="btn btn-danger" href="<?= $base_url ?>/transaksi/delete/<?=$row["kode"] ?>" role="button">hapus</a>
+                        <a class="btn btn-primary" href="<?= $base_url ?>/transaksi/edit/<?=$row["kode"] ?>" role="button">edit</a>
                     </div>
                 </td>
                 <td><?= $row["server"] ?></td>
@@ -42,7 +42,7 @@
                     <h4 class="modal-title">Masukan nim</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form" action="/transaksi/add" method="get">
+                    <form class="form" action="<?= $base_url ?>/transaksi/add" method="get">
                         <div class="form-group">
                             <input type="text" name="nim" class="form-control" placeholder="nim">
                         </div>
